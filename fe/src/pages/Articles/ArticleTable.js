@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
 import { Card, Col, Row } from "react-bootstrap";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setArticles } from "../../config/redux/actions";
 
 const ArticleTable = () => {
-  const { articles } = useSelector((state) => state);
+  const { articles } = useSelector((state) => state.articlesReducer);
   const dispatch = useDispatch();
 
-  const getArticles = async () => {
-    const { data } = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts`
-    );
-    dispatch({ type: "GET_ARTICLES", payload: data });
-  };
-
   useEffect(() => {
-    getArticles();
-  }, []);
+    dispatch(setArticles());
+  }, [dispatch]);
 
   return (
     <Row className="d-flex justify-content-center align-items-center">

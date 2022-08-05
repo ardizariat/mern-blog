@@ -1,27 +1,7 @@
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import reducers from "./reducers";
+import thunk from "redux-thunk";
 
-const initialState = {
-  articles: [],
-  articleDetail: {},
-};
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "GET_ARTICLES":
-      return {
-        ...state,
-        articles: action.payload,
-      };
-    case "GET_ARTICLE_DETAIL":
-      return {
-        ...state,
-        articleDetail: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(reducer);
+const store = createStore(reducers, applyMiddleware(thunk));
 
 export default store;
